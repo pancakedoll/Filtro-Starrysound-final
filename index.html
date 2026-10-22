@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<title>Starry Sound</title>
+	<meta charset="utf-8">
+	<meta name="generator" content="Three.js Editor">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+	<meta name="theme-color" content="#1996d3">
+	<link rel="icon" type="image/svg+xml" href="assets/star-mango.svg">
+	<link rel="stylesheet" href="css/app.css">
+
+	<!-- Tipografía de reemplazo para el texto corrido (Crayons Regular, si no está el archivo) -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap">
+
+	<!-- Línea gráfica Starry Sound (va después de app.css) -->
+	<link rel="stylesheet" href="css/starry.css">
+
+	<script type="importmap">
+	{
+		"imports": {
+			"three": "./js/three.compat.js",
+			"three/addons/": "./js/addons/",
+			"mindar-image-three": "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"
+		}
+	}
+	</script>
+
+	<script type="module">
+		import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.186.0/examples/jsm/loaders/GLTFLoader.js';
+		window.ThreeGLTFLoader = GLTFLoader;
+	</script>
+</head>
+
+<body ontouchstart="">
+
+	<div id="ar-container"></div>
+
+	<div class="log" id="log"></div>
+
+
+	<div id="ui">
+		<img class="ar-logo" src="assets/logo.svg" alt="Starry Sound">
+
+		<nav class="dock" aria-label="Información del producto">
+			<button class="dock-btn" type="button" data-open="dlg-producto" data-accent="mango" aria-haspopup="dialog">
+				<img src="assets/star-mango.svg" alt="">
+				<span>Producto</span>
+			</button>
+			<button class="dock-btn" type="button" data-open="dlg-personajes" data-accent="frambuesa" aria-haspopup="dialog">
+				<img src="assets/star-frambuesa.svg" alt="">
+				<span>Personajes</span>
+			</button>
+			<button class="dock-btn" type="button" data-open="dlg-contacto" data-accent="blueberry" aria-haspopup="dialog">
+				<img src="assets/star-blueberry.svg" alt="">
+				<span>Contacto</span>
+			</button>
+		</nav>
+	</div>
+
+	<!-- ====== MODALES ====== -->
+	<!-- Los títulos usan Trimen Drawing: solo MAYÚSCULAS sin tildes (A-Z y 0-9).
+	     El texto del cuerpo sí admite tildes y signos. -->
+
+	<dialog class="modal" id="dlg-producto" data-accent="mango" aria-labelledby="dlg-producto-title">
+		<div class="modal-card">
+			<header class="modal-head">
+				<img src="assets/star-mango.svg" alt="">
+				<h2 class="t-title" id="dlg-producto-title">El producto</h2>
+			</header>
+			<button class="modal-close" type="button" data-close aria-label="Cerrar"></button>
+			<div class="modal-body">
+				<p> <strong>Una gomita. Una canción. Un universo sorpresa.</strong>
+
+Starry Sound es una experiencia sensorial que mezcla gomitas en forma de estrella, sabores con personalidad y música inesperada. Cada cajita es un misterio: nunca sabes qué sabor probarás ni qué soundtrack te acompañará.</p>
+				<ul>
+					<li> Consigue tu caja sorpresa y descubre qué estrella te espera.</li>
+					<li>SEscanea el empaque y activa la experiencia musical.</li>
+					<li>Mastica tu gomita, escucha tu soundtrack sorpresa y déjate llevar por el universo Starry Sound.</li>
+				</ul>
+			</div>
+			<footer class="modal-foot">
+				<button class="modal-ok" type="button" data-close>Cerrar</button>
+			</footer>
+		</div>
+	</dialog>
+
+	<dialog class="modal" id="dlg-personajes" data-accent="frambuesa" aria-labelledby="dlg-personajes-title">
+		<div class="modal-card">
+			<header class="modal-head">
+				<img src="assets/star-frambuesa.svg" alt="">
+				<h2 class="t-title" id="dlg-personajes-title">Personajes</h2>
+			</header>
+			<button class="modal-close" type="button" data-close aria-label="Cerrar"></button>
+			<div class="modal-body">
+				<p>Conoce a las estrellas de Starry Sound. Cada una tiene su propio sabor y su propio carácter.</p>
+				<div class="chars">
+					<figure><img src="assets/star-mango.svg" alt=""><figcaption>Mango</figcaption></figure>
+					<figure><img src="assets/star-frambuesa.svg" alt=""><figcaption>Frambuesa</figcaption></figure>
+					<figure><img src="assets/star-blueberry.svg" alt=""><figcaption>Blue Berry</figcaption></figure>
+					<figure><img src="assets/star-limon.svg" alt=""><figcaption>Limón</figcaption></figure>
+					<figure><img src="assets/star-uva.svg" alt=""><figcaption>Uva</figcaption></figure>
+					<figure><img src="assets/star-cereza.svg" alt=""><figcaption>Cereza</figcaption></figure>
+				</div>
+			</div>
+			<footer class="modal-foot">
+				<button class="modal-ok" type="button" data-close>Cerrar</button>
+			</footer>
+		</div>
+	</dialog>
+
+	<dialog class="modal" id="dlg-contacto" data-accent="blueberry" aria-labelledby="dlg-contacto-title">
+		<div class="modal-card">
+			<header class="modal-head">
+				<img src="assets/star-blueberry.svg" alt="">
+				<h2 class="t-title" id="dlg-contacto-title">Contacto</h2>
+			</header>
+			<button class="modal-close" type="button" data-close aria-label="Cerrar"></button>
+			<div class="modal-body">
+				<p>¿Quieres saber más o hacer un pedido? Escríbenos:</p>
+				<ul>
+					<li>Instagram: <a href="https://instagram.com/" target="_blank" rel="noopener">@tu_usuario</a></li>
+					<li>WhatsApp: <a href="https://wa.me/" target="_blank" rel="noopener">+57 000 000 0000</a></li>
+					<li>Correo: <a href="mailto:hola@ejemplo.com">hola@ejemplo.com</a></li>
+				</ul>
+			</div>
+			<footer class="modal-foot">
+				<button class="modal-ok" type="button" data-close>Cerrar</button>
+			</footer>
+		</div>
+	</dialog>
+
+	<!-- ====== HOME ====== -->
+	<div id="overlay">
+		<div class="bg-stars" aria-hidden="true">
+			<img src="assets/star-mango.svg" alt="">
+			<img src="assets/star-frambuesa.svg" alt="">
+			<img src="assets/star-limon.svg" alt="">
+			<img src="assets/star-uva.svg" alt="">
+			<img src="assets/star-cereza.svg" alt="">
+			<img src="assets/star-mango-gafas.svg" alt="">
+		</div>
+
+		<img class="home-logo" src="assets/logo.svg" alt="Starry Sound">
+		<p class="home-tagline">Permite el acceso a la cámara y apúntala a la imagen</p>
+
+		<button id="start-button">Iniciar</button>
+		<div id="progress-container">
+			<div id="progress-bar-track">
+				<div id="progress-bar-fill"></div>
+			</div>
+			<div id="progress-label">Cargando... 0%</div>
+		</div>
+	</div>
+
+	<script type="module">
+
+		import * as THREE from './js/three.module.js';
+		import { APP } from './js/app.js';
+		import { MindARController } from './js/mindar/mindar_controller.js';
+
+		window.THREE = THREE; // Used by APP Scripts.
+
+		const log = document.getElementById('log');
+		const overlay = document.getElementById('overlay');
+		const startButton = document.getElementById('start-button');
+		const arContainer = document.getElementById('ar-container');
+		const progressContainer = document.getElementById('progress-container');
+		const progressFill = document.getElementById('progress-bar-fill');
+		const progressLabel = document.getElementById('progress-label');
+
+		const debugMode = new URLSearchParams(location.search).get('debug') === '1';
+		if (debugMode) document.body.classList.add('debug');
+
+		let player = null;
+		let mindarController = null;
+		let loaded = false;
+		let loadPromise = null;
+
+		function setProgress(percent, text) {
+			progressFill.style.width = `${percent}%`;
+			progressLabel.textContent = `${text} ${percent}%`;
+		}
+
+		async function loadEverything() {
+
+			if (loadPromise) return loadPromise;
+
+			loadPromise = (async () => {
+
+				setProgress(0, 'Cargando escena...');
+
+				// Descarga app.json con progreso real (0% - 25%)
+				const text = await new Promise((resolve, reject) => {
+					const loader = new THREE.FileLoader();
+					loader.load(
+						'app.json',
+						(t) => resolve(t),
+						(e) => {
+							if (e.lengthComputable) {
+								const p = Math.round((e.loaded / e.total) * 25);
+								setProgress(p, 'Cargando escena...');
+							}
+						},
+						(err) => reject(new Error(err.statusText || 'No se pudo descargar el json'))
+					);
+				});
+
+				player = new APP.Player({ alpha: true });
+				await player.load(JSON.parse(text));
+				player.setSize(window.innerWidth, window.innerHeight);
+				player.play();
+				setProgress(55, 'Escena lista...');
+
+				document.body.appendChild(player.dom);
+
+				window.addEventListener('resize', function () {
+					player.setSize(window.innerWidth, window.innerHeight);
+				});
+
+				window.player = player;
+
+				setProgress(85, 'Preparando AR...');
+				log.textContent = 'initializing...';
+
+				await new Promise((resolve) => setTimeout(resolve, 10));
+
+				setProgress(100, 'Listo');
+				loaded = true;
+
+				console.log(window.player);
+
+			})().catch((e) => {
+				loaded = false;
+				loadPromise = null; // permite reintentar al pulsar el botón
+				throw e;
+			});
+
+			return loadPromise;
+		}
+
+		// Al darle al botón start se inicia la cámara (requiere gesto del usuario).
+		startButton.addEventListener('click', async () => {
+
+			progressContainer.style.display = 'flex';
+
+			try {
+				await loadEverything();
+				if (!loaded) return;
+
+				setProgress(90, 'Iniciando cámara...');
+
+				// La cámara se inicia aquí, dentro del gesto del usuario.
+				mindarController = new MindARController(arContainer, player, debugMode);
+				window.mindarController = mindarController;
+
+				await mindarController.start();
+
+				// El player sigue funcionando (scripts/audio) pero su canvas ya no se usa.
+				if (player?.dom) player.dom.style.display = 'none';
+
+				overlay.classList.add('hidden');
+				document.body.classList.add('ui-ready'); // muestra logo + 3 botones
+				setTimeout(() => overlay.remove(), 400);
+			} catch (e) {
+				console.error('Error durante la carga:', e);
+				startButton.textContent = 'Reintentar';
+				setProgress(0, 'Error al iniciar');
+			}
+		});
+
+		// Todo se carga automáticamente al abrir la página.
+		loadEverything().catch((e) => {
+			console.error('Error durante la carga automática:', e.message);
+			progressContainer.style.display = 'flex';
+			setProgress(0, 'Error al cargar');
+			startButton.textContent = 'Reintentar';
+		});
+
+	</script>
+
+	<!-- ====== Lógica de botones y modales ====== -->
+	<script>
+		(function () {
+
+			// El Player de la escena escucha 'click' y 'mousemove' en document para
+			// lanzar rayos (por ejemplo, el botón PLAY del modelo 3D). Si no cortamos
+			// la propagación, tocar un botón o un modal también tocaría la escena.
+			function isolate(el) {
+				['click', 'mousemove'].forEach(function (type) {
+					el.addEventListener(type, function (e) { e.stopPropagation(); });
+				});
+			}
+
+			isolate(document.getElementById('ui'));
+
+			document.querySelectorAll('dialog.modal').forEach(function (dlg) {
+				isolate(dlg);
+
+				// Cerrar con los botones [data-close]
+				dlg.querySelectorAll('[data-close]').forEach(function (btn) {
+					btn.addEventListener('click', function () { dlg.close(); });
+				});
+
+				// Cerrar al tocar fuera de la tarjeta (el fondo)
+				dlg.addEventListener('click', function (e) {
+					if (e.target === dlg) dlg.close();
+				});
+			});
+
+			// Abrir con los botones [data-open]
+			document.querySelectorAll('[data-open]').forEach(function (btn) {
+				btn.addEventListener('click', function () {
+					var dlg = document.getElementById(btn.dataset.open);
+					if (dlg && !dlg.open) dlg.showModal();
+				});
+			});
+
+		})();
+	</script>
+</body>
+
+</html>
